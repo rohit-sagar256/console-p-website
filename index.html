@@ -3,25 +3,159 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modern Web Terminal</title>
-    <link rel="stylesheet" href="/src/styles/main.scss" />
+    <title>Web Terminal</title>
+    <link rel="stylesheet" href="/src/styles/main.css" />
   </head>
-  <body>
-    <div class="terminal-container">
-      <div class="top-bar">
-        <div class="window-controls">
-          <div class="control-btn close"></div>
-          <div class="control-btn minimize"></div>
-          <div class="control-btn maximize"></div>
+  <body class="bg-[#1e1e1e] text-white h-screen overflow-hidden">
+    <div class="terminal-container flex flex-col h-screen max-h-screen">
+      <div
+        class="top-bar bg-[#2d2d2d] p-[10px] flex items-center justify-between border-b border-[#3d3d3d] shrink-0"
+      >
+        <div class="window-controls flex gap-2">
+          <div
+            class="control-btn close w-[12px] h-[12px] rounded-full cursor-pointer bg-[#ff5f56]"
+          ></div>
+          <div
+            class="control-btn minimize w-[12px] h-[12px] rounded-full cursor-pointer bg-[#ffbd2e]"
+          ></div>
+          <div
+            class="control-btn maximize w-[12px] h-[12px] rounded-full cursor-pointer bg-[#27c93f]"
+          ></div>
         </div>
-        <div class="terminal-title">Terminal</div>
+        <div
+          class="terminal-title text-[#ddd] text-[14px] text-center flex-grow"
+        >
+          Terminal
+        </div>
       </div>
-      <div class="terminal-content" id="terminal-content">
-        <div class="terminal-c-introduction">Welcome to Web Terminal</div>
-        <div class="command-line">
-          <span class="prompt">rohitsagar.com:</span>
-          <input type="text" class="user-input" id="userInput" autofocus />
-          <span class="cursor"></span>
+      <div class="termain-wrapper flex flex-1 min-h-0">
+        <div
+          id="terminal-content"
+          class="terminal-content flex-grow flex flex-col bg-[#1e1e1e] relative min-h-0 p-0"
+        >
+          <div class="flex-1 overflow-y-auto p-5 flex flex-col relative" id="terminal-output-wrapper" style="scroll-padding-top:56px;">
+            <div id="terminal-output">
+              <!-- About -->
+              <section id="aboutme"  class="w-full max-w-full mb-4 bg-[#18181b] rounded shadow-inner p-4 z-10 relative">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Molestiae iure, perferendis mollitia quo laborum iste aut
+                accusantium. Id, cumque a. Quas doloremque repudiandae ullam
+                reiciendis enim ut veritatis sint iste excepturi iusto. Est
+                commodi id omnis facere distinctio officiis labore minima, ab
+                accusamus dicta quo, velit voluptates veritatis praesentium rerum
+                inventore ratione. Nemo dolor iusto fugiat cupiditate omnis quam,
+                optio doloribus, unde aliquam reprehenderit voluptatibus tempora
+                vel! Quos, harum hic consequuntur temporibus enim at reiciendis
+                nulla minima quo sequi provident laboriosam inventore cupiditate
+                soluta veritatis pariatur? Qui debitis reiciendis asperiores
+                veritatis eveniet aut nam quas. Veritatis pariatur nesciunt
+                adipisci? Accusantium tempora, quia, error distinctio velit
+                explicabo assumenda odit at, unde cupiditate odio nihil ducimus
+                corporis dignissimos vel. Repellendus sed recusandae enim optio
+                omnis, atque deleniti quod expedita voluptas. Neque exercitationem
+                alias tempora sed impedit ipsa pariatur sequi ad corporis
+                repellendus amet animi molestiae ab iure aspernatur a ex excepturi
+                error, autem omnis, illo expedita, sit totam. Harum laboriosam
+                vero sequi vel corporis error voluptatum cupiditate, quia autem
+                quasi iusto consequuntur dignissimos earum, dolorem molestiae
+                minus temporibus repellat ipsam deserunt ratione dolorum
+                laudantium non similique? Voluptate odit atque aspernatur itaque,
+                repudiandae nihil distinctio laboriosam ab a rerum quam nesciunt
+                blanditiis cum fugit ipsam iusto nemo est nam hic vel,
+                consequuntur deleniti molestiae! Necessitatibus id, iste modi
+                fugiat iure asperiores nobis pariatur, reprehenderit, nulla
+                corporis aspernatur deserunt numquam tempore cupiditate maxime
+                ducimus ipsa quos rerum perferendis minima temporibus sunt? Ab
+                pariatur eum blanditiis soluta temporibus cum enim saepe obcaecati
+                esse. Natus possimus dolores cumque ex praesentium, sapiente
+                vitae! Consequuntur dolore quas ex voluptatibus consectetur vitae
+                vel nostrum harum repellendus, sunt id dolores officia dolorem at
+                illum nesciunt ab ipsa cum tenetur possimus vero incidunt
+                doloribus accusantium? Dolorem voluptatem iusto quasi in, nulla,
+                reiciendis exercitationem asperiores eaque eligendi quidem vero at
+                nostrum tenetur natus quam expedita eveniet hic iste. Incidunt,
+                vitae nulla. Asperiores dolorum officia, fuga neque culpa,
+                similique temporibus quas est quae reprehenderit incidunt! Saepe
+                hic similique adipisci aliquam eaque repudiandae provident id illo
+                pariatur ratione. Sequi incidunt temporibus quae. Facilis expedita
+                eum doloremque nesciunt iure, asperiores veritatis a! Corrupti
+                nisi, officia reiciendis laboriosam aliquid totam sequi fugit
+                nesciunt exercitationem minus nobis, possimus perferendis ipsum
+                itaque recusandae ab, quos magni fuga dolores in unde rem nulla!
+                Nulla tenetur repellendus blanditiis recusandae ipsum porro,
+                reprehenderit, ipsa culpa rerum iusto odit est, dicta corrupti
+                inventore neque beatae totam corporis excepturi dolorum autem
+                impedit saepe. Nesciunt reprehenderit nobis non quam beatae
+                exercitationem hic aliquam nostrum minima, commodi, facilis quidem
+                sit assumenda? Distinctio suscipit beatae eligendi iste, quisquam,
+                tempore dicta reiciendis ipsam, est esse officia. Repellendus
+                sapiente sint consequuntur ipsam, libero ut, facere qui eveniet
+                dolorem illo, eaque voluptates consectetur expedita cum quisquam
+                velit amet commodi minus a doloribus quas atque odit ab. Harum,
+                tempore! Ipsam atque quae, accusamus provident sed dolorem
+                laudantium modi reprehenderit perspiciatis ut corporis id? Unde
+                quo culpa debitis praesentium iure enim nam voluptas reprehenderit
+                explicabo incidunt. Saepe voluptate voluptatibus vitae impedit
+                assumenda nostrum molestiae officiis! Pariatur doloribus tempore
+                eos magni illum!
+              </section>
+            </div>
+            <div id="intro" class="flex flex-col items-center justify-center min-h-[120px] absolute inset-0 pointer-events-none transition-opacity duration-300">
+              <h1 class="text-3xl font-bold mb-2">Welcome</h1>
+              <small class="text-gray-400">use <span class="bg-[#2d2d2d] px-1 rounded">/commands/</span> to navigate</small>
+            </div>
+          </div>
+          <!-- Terminal User Input -->
+          <div
+            class="command-line flex items-center w-full bg-[#18181b] p-3 border-t border-[#23232a] sticky bottom-0 left-0 z-10"
+          >
+            <span class="prompt text-[#b3b3b3] font-mono mr-3 text-xs">&gt;</span>
+            <span class="h-6 w-px bg-[#23232a] mr-3"></span>
+            <input
+              id="userInput"
+              type="text"
+              placeholder="Type a command..."
+              class="user-input bg-[#23232a] border-none text-white text-xs outline-none flex-grow px-3 py-1 rounded transition-colors duration-150 focus:bg-[#23232a]/90"
+              autofocus
+            />
+          </div>
+        </div>
+        <div
+          class="help-section min-w-[220px] max-w-xs bg-[#18181b] text-[#b3b3b3] p-5 h-full shrink-0 flex flex-col rounded-br-lg border-l border-[#23232a] shadow-inner font-mono"
+        >
+          <div class="mb-4">
+            <span
+              class="block text-xs tracking-widest text-[#888] mb-1 select-none"
+              >[ HELP ]</span
+            >
+            <div class="w-full h-px bg-[#23232a] mb-3"></div>
+          </div>
+          <ul class="space-y-3 text-xs">
+            <li class="flex flex-col gap-1">
+              <div class="flex items-center gap-2">
+                <span
+                  class="inline-block text-[#b3b3b3] bg-[#23232a] px-2 py-0.5 rounded select-none"
+                  >help</span
+                >
+                <span class="opacity-40 italic">Show available commands</span>
+              </div>
+              <div class="pl-2 text-[#23232a] text-[10px] select-none">
+                ────────────────────────────
+              </div>
+            </li>
+            <li class="flex flex-col gap-1">
+              <div class="flex items-center gap-2">
+                <span
+                  class="inline-block text-[#b3b3b3] bg-[#23232a] px-2 py-0.5 rounded select-none"
+                  >clear</span
+                >
+                <span class="opacity-40 italic">Clear terminal output</span>
+              </div>
+              <div class="pl-2 text-[#23232a] text-[10px] select-none">
+                ────────────────────────────
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

@@ -12,11 +12,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.7",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
+    "postcss-import": "^16.1.0",
     "postcss-preset-env": "^10.1.6",
     "sass": "^1.89.0",
+    "tailwindcss": "^4.1.7",
     "terser": "^5.39.2",
     "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.7"
   }
 }
