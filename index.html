@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Web Terminal</title>
+    <link rel="stylesheet" href="/src/styles/main.scss" />
+  </head>
+  <body>
+    <div class="terminal-container">
+      <div class="top-bar">
+        <div class="window-controls">
+          <div class="control-btn close"></div>
+          <div class="control-btn minimize"></div>
+          <div class="control-btn maximize"></div>
+        </div>
+        <div class="terminal-title">Terminal</div>
+      </div>
+      <div class="terminal-content" id="terminal-content">
+        <div class="terminal-c-introduction">Welcome to Web Terminal</div>
+        <div class="command-line">
+          <span class="prompt">rohitsagar.com:</span>
+          <input type="text" class="user-input" id="userInput" autofocus />
+          <span class="cursor"></span>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
