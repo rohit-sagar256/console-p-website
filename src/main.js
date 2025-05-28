@@ -1,5 +1,7 @@
 "use strict";
 
+import commands from "./commands.js";
+
 const userInput = document.getElementById("userInput");
 const terminalContent = document.getElementById("terminal-content");
 

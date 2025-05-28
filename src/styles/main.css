@@ -43,10 +43,6 @@
 
 
 /* Section Bar */
-
-#terminal-output section {
-  position: relative;
-}
 #terminal-output section::after {
   content: '';
   position: absolute;
