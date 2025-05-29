@@ -1,8 +1,9 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @font-face {
   font-family: "FiraCode VF";
-  src: url("../assets/fonts/FiraCode/FiraCode-VF.woff2") format("woff2-variations");
+  src: url("../assets/fonts/FiraCode/FiraCode-VF.woff2")
+    format("woff2-variations");
   font-weight: 300 700;
   font-style: normal;
   font-display: swap;
@@ -18,7 +19,8 @@
 }
 
 @keyframes blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -41,10 +43,15 @@
   background: #555;
 }
 
+#terminal-output section {
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !;
+}
 
 /* Section Bar */
 #terminal-output section::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -59,4 +66,36 @@
 #terminal-output section:hover::after {
   background-color: #6d6d6d;
   transform: scaleX(2);
+}
+
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Fade-out animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease-in-out;
 }

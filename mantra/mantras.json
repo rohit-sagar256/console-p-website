@@ -1,0 +1,16 @@
+{
+  "commands": {
+    "--about": {
+      "title": "About the Creator",
+      "description": "Learn about the creator of this project.",
+      "html": "mantra/templates/about.html"
+    },
+    "--help": {},
+    "--contact": {},
+    "--hobbies": {},
+    "--movies": {},
+    "--music": {},
+    "--socials": {},
+    "--technology": {}
+  }
+}
