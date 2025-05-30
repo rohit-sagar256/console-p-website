@@ -1,13 +1,15 @@
 "use strict";
 
-let states = {
-  showPressEnterMessage: false,
-  showHelpPanel: false,
-  showTerminalOutput: false,
-  showTerminalContent: false,
-  showCommandLinebox: true,
-  mantras: [],
-};
+import { states } from "./initializer";
+
+const userInput = document.getElementById("userInput");
+const terminalContent = document.getElementById("terminal-content");
+const terminalOutput = document.getElementById("terminal-output");
+const helpPanel = document.querySelector(".help-section");
+const commandLinebox = document.querySelector(".command-line");
+const terminalOutputWrapper = document.getElementById(
+  "terminal-output-wrapper"
+);
 
 async function loadMantras() {
   try {
@@ -21,15 +23,6 @@ async function loadMantras() {
     console.error("Error loading mantras.json:", error);
   }
 }
-
-const userInput = document.getElementById("userInput");
-const terminalContent = document.getElementById("terminal-content");
-const terminalOutput = document.getElementById("terminal-output");
-const helpPanel = document.querySelector(".help-section");
-const commandLinebox = document.querySelector(".command-line");
-const terminalOutputWrapper = document.getElementById(
-  "terminal-output-wrapper"
-);
 
 loadMantras().then((mantras) => {
   if (mantras) {
@@ -74,23 +67,61 @@ loadMantras().then((mantras) => {
   }
 });
 
+let typingTimeout;
+
 userInput.addEventListener("input", function (e) {
   const inputValue = e.target.value.trim();
+  commandCenter(inputValue);
+});
 
-  if (inputValue.length >= 3) {
-    if (!states.showPressEnterMessage) {
-      states.showPressEnterMessage = true;
+// Command Center
+function commandCenter(commands) {
+  const splittedCommands = commands
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((cmd) => cmd.toLowerCase());
+
+  showPressEnterMessage(false);
+
+  clearhighlightedCommandInHelperPanel();
+
+  if (commands.length < 3) return;
+
+  const validCommands = splittedCommands.filter((cmd) => commandExists(cmd));
+  states.currentCommand = validCommands;
+
+  clearTimeout(typingTimeout);
+
+  typingTimeout = setTimeout(() => {
+    const allValid = areAllCommandsValid(commands);
+    if (allValid) {
       showPressEnterMessage(true);
     }
-  } else {
-    if (states.showPressEnterMessage) {
-      states.showPressEnterMessage = false;
-      showPressEnterMessage(false);
-    }
-  }
+  }, 1000);
 
-  highlightCommandInHelperPanel(inputValue);
-});
+  states.currentCommand.forEach((command) => {
+    highlightCommandInHelperPanel(command);
+  });
+}
+
+// Are all commands valid?
+function areAllCommandsValid(input) {
+  const commands = input
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((cmd) => cmd.toLowerCase());
+
+  if (commands.length === 0) return false;
+
+  return commands.every((cmd) => commandExists(cmd));
+}
+
+// command exists
+function commandExists(command) {
+  return states.mantras.commands.hasOwnProperty(command);
+}
 
 /**
  *Shows or hides the 'Press Enter Message' Element based on the current state and length of character of user input.
@@ -123,9 +154,13 @@ function highlightCommandInHelperPanel(command) {
   if (highlightedCommandEl) {
     highlightedCommandEl.classList.add("highlighted_cmd");
   } else {
-    const highlightedCmds = helpPanel.querySelectorAll(".highlighted_cmd");
-    highlightedCmds.forEach((el) => {
-      el.classList.remove("highlighted_cmd");
-    });
+    clearhighlightedCommandInHelperPanel();
   }
+}
+
+function clearhighlightedCommandInHelperPanel() {
+  const highlightedCmds = helpPanel.querySelectorAll(".highlighted_cmd");
+  highlightedCmds.forEach((el) => {
+    el.classList.remove("highlighted_cmd");
+  });
 }
