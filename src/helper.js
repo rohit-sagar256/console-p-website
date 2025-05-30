@@ -37,16 +37,16 @@ export function addDatasetToTopElement(fragment, value, key = "command") {
  * @param {string} input - The input string containing commands.
  * @returns {boolean} - True if all commands are valid, false otherwise.
  */
-export function areAllCommandsValid(input) {
-  const commands = input
+export function areAllCommandsValid(commands, input) {
+  const commandsFilterd = input
     .trim()
     .split(/\s+/)
     .filter(Boolean)
     .map((cmd) => cmd.toLowerCase());
 
-  if (commands.length === 0) return false;
+  if (commandsFilterd.length === 0) return false;
 
-  return commands.every((cmd) => commandExists(cmd));
+  return commandsFilterd.every((cmd) => commandExists(commands, cmd));
 }
 
 /**
@@ -54,6 +54,6 @@ export function areAllCommandsValid(input) {
  * @param {string} command - The command to check.
  * @returns {boolean} - True if the command exists, false otherwise.
  */
-export function commandExists(command) {
-  return states.mantras.commands.hasOwnProperty(command);
+export function commandExists(commands, command) {
+  return commands.hasOwnProperty(command);
 }

@@ -1,6 +1,6 @@
 "use strict";
 
-let states = {
+export const states = {
   showPressEnterMessage: false,
   showHelpPanel: false,
   showTerminalOutput: false,
@@ -11,5 +11,3 @@ let states = {
   currentCommand: [],
   currentCommandContents: [],
 };
-
-export { states };

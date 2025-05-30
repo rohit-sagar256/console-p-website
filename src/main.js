@@ -1,6 +1,6 @@
 "use strict";
 
-import { states } from "./initializer";
+import { states } from "./state";
 import {
   debounce,
   addDatasetToTopElement,
@@ -90,12 +90,6 @@ userInput.addEventListener(
 function showContentBasedOnCommand() {
   terminalOutput.querySelectorAll("[data-command]").forEach((el) => {
     const cmd = el.dataset.command;
-    console.log(
-      cmd,
-      states.currentCommand.includes(cmd),
-      states.currentCommand
-    );
-
     if (!states.currentCommand.includes(cmd)) {
       el.remove();
     }
@@ -139,16 +133,18 @@ function commandCenter(commands) {
   } else {
     const seen = new Set();
     states.currentCommand = splittedCommands.filter((cmd) => {
-      return commandExists(cmd) && !seen.has(cmd) && seen.add(cmd);
+      return (
+        commandExists(states.mantras.commands, cmd) &&
+        !seen.has(cmd) &&
+        seen.add(cmd)
+      );
     });
   }
-
-  console.log("Current Commands:", states.currentCommand);
 
   clearTimeout(typingTimeout);
 
   typingTimeout = setTimeout(() => {
-    const allValid = areAllCommandsValid(commands);
+    const allValid = areAllCommandsValid(states.mantras.commands, commands);
     if (allValid) {
       showPressEnterMessage(true);
     }
