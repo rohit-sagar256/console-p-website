@@ -2,7 +2,7 @@
   "commands": {
     "--about": {
       "title": "About the Creator",
-      "description": "Learn about the creator of this project.",
+      "cmd_info": "Learn about the creator of this project.",
       "html": "mantra/templates/about.html"
     },
     "--help": {},

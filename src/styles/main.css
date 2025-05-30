@@ -68,6 +68,14 @@
   transform: scaleX(2);
 }
 
+.highlighted_cmd {
+  background-color: #3a3a3a;
+  color: #ffffff;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
 /* Animation for fade-in effect */
 @keyframes fadeIn {
   from {
