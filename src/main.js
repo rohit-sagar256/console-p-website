@@ -71,8 +71,42 @@ let typingTimeout;
 
 userInput.addEventListener("input", function (e) {
   const inputValue = e.target.value.trim();
+  // Command Center
   commandCenter(inputValue);
+
+  // Show content based on the command
+
+  showContentBasedOnCommand();
 });
+
+function showContentBasedOnCommand() {
+
+  terminalOutput.querySelectorAll("[data-command]").forEach((el) => {
+    const cmd = el.dataset.command;
+    if (!states.currentCommand.includes(cmd)) {
+      el.remove();
+    }
+  });
+
+  if (states.currentCommand.length > 0) {
+    states.currentCommand.forEach((command) => {
+      if (states.mantras.commands[command]) {
+        if (!terminalContent.querySelector(`[data-command="${command}"]`)) {
+          loadTemplate(command).then((template) => {
+            terminalOutput.appendChild(
+              addDatasetToTopElement(
+                htmlStringToFragmentFromTemplate(template),
+                command
+              )
+            );
+          });
+        }
+      }
+    });
+  } else {
+    terminalOutput.innerHTML = "";
+  }
+}
 
 // Command Center
 function commandCenter(commands) {
@@ -86,10 +120,17 @@ function commandCenter(commands) {
 
   clearhighlightedCommandInHelperPanel();
 
-  if (commands.length < 3) return;
+  if (splittedCommands.length === 0 || commands.trim() === "") {
+    states.currentCommand = [];
+  } else {
+    const existing = new Set(states.currentCommand);
 
-  const validCommands = splittedCommands.filter((cmd) => commandExists(cmd));
-  states.currentCommand = validCommands;
+    const newValidCommands = splittedCommands.filter(
+      (cmd) => commandExists(cmd) && !existing.has(cmd)
+    );
+
+    states.currentCommand.push(...newValidCommands);
+  }
 
   clearTimeout(typingTimeout);
 
@@ -163,4 +204,40 @@ function clearhighlightedCommandInHelperPanel() {
   highlightedCmds.forEach((el) => {
     el.classList.remove("highlighted_cmd");
   });
+}
+
+async function loadTemplate(command) {
+  const templatePath = states.mantras.commands[command]?.html;
+
+  try {
+    const response = await fetch(templatePath);
+    if (!response.ok) {
+      throw new Error(`Template not found: ${templatePath}`);
+    }
+    return await response.text();
+  } catch (err) {
+    console.error("Error loading template:", err);
+  }
+}
+
+function htmlStringToFragmentFromTemplate(htmlString) {
+  const temp = document.createElement("div");
+  temp.innerHTML = htmlString.trim();
+
+  const template = temp.querySelector("template");
+  if (!template) {
+    throw new Error("No <template> tag found in HTML string");
+  }
+
+  return template.content.cloneNode(true);
+}
+
+function addDatasetToTopElement(fragment, value, key = "command") {
+  for (const node of fragment.childNodes) {
+    if (node.nodeType === 1) {
+      node.dataset[key] = value;
+      break;
+    }
+  }
+  return fragment;
 }

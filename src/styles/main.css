@@ -44,9 +44,9 @@
 }
 
 #terminal-output section {
-  position: absolute !important;
-  right: 0 !important;
-  top: 0 !;
+  position: relative !important;
+  /* right: 0 !important;
+  top: 0 !; */
 }
 
 /* Section Bar */

@@ -9,6 +9,7 @@ let states = {
   applicationLoaded: false,
   mantras: [],
   currentCommand: [],
+  currentCommandContents: [],
 };
 
 export { states };
