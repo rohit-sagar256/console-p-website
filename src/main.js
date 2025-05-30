@@ -1,6 +1,12 @@
 "use strict";
 
 import { states } from "./initializer";
+import {
+  debounce,
+  addDatasetToTopElement,
+  areAllCommandsValid,
+  commandExists,
+} from "./helper";
 
 const userInput = document.getElementById("userInput");
 const terminalContent = document.getElementById("terminal-content");
@@ -69,20 +75,27 @@ loadMantras().then((mantras) => {
 
 let typingTimeout;
 
-userInput.addEventListener("input", function (e) {
-  const inputValue = e.target.value.trim();
-  // Command Center
-  commandCenter(inputValue);
+userInput.addEventListener(
+  "input",
+  debounce((e) => {
+    const inputValue = e.target.value.trim();
+    // Command Center
+    commandCenter(inputValue);
 
-  // Show content based on the command
-
-  showContentBasedOnCommand();
-});
+    // Show content based on the command
+    showContentBasedOnCommand();
+  }, 300)
+);
 
 function showContentBasedOnCommand() {
-
   terminalOutput.querySelectorAll("[data-command]").forEach((el) => {
     const cmd = el.dataset.command;
+    console.log(
+      cmd,
+      states.currentCommand.includes(cmd),
+      states.currentCommand
+    );
+
     if (!states.currentCommand.includes(cmd)) {
       el.remove();
     }
@@ -91,14 +104,15 @@ function showContentBasedOnCommand() {
   if (states.currentCommand.length > 0) {
     states.currentCommand.forEach((command) => {
       if (states.mantras.commands[command]) {
-        if (!terminalContent.querySelector(`[data-command="${command}"]`)) {
+        if (!terminalOutput.querySelector(`[data-command="${command}"]`)) {
           loadTemplate(command).then((template) => {
-            terminalOutput.appendChild(
-              addDatasetToTopElement(
-                htmlStringToFragmentFromTemplate(template),
-                command
-              )
-            );
+            const f = htmlStringToFragmentFromTemplate(template);
+            const uf = addDatasetToTopElement(f, command);
+            const tempDiv = document.createElement("div");
+            tempDiv.appendChild(uf);
+            const newEl = tempDiv.firstElementChild;
+            terminalOutput.appendChild(newEl);
+            newEl.scrollIntoView({ behavior: "smooth", block: "start" });
           });
         }
       }
@@ -123,14 +137,13 @@ function commandCenter(commands) {
   if (splittedCommands.length === 0 || commands.trim() === "") {
     states.currentCommand = [];
   } else {
-    const existing = new Set(states.currentCommand);
-
-    const newValidCommands = splittedCommands.filter(
-      (cmd) => commandExists(cmd) && !existing.has(cmd)
-    );
-
-    states.currentCommand.push(...newValidCommands);
+    const seen = new Set();
+    states.currentCommand = splittedCommands.filter((cmd) => {
+      return commandExists(cmd) && !seen.has(cmd) && seen.add(cmd);
+    });
   }
+
+  console.log("Current Commands:", states.currentCommand);
 
   clearTimeout(typingTimeout);
 
@@ -144,24 +157,6 @@ function commandCenter(commands) {
   states.currentCommand.forEach((command) => {
     highlightCommandInHelperPanel(command);
   });
-}
-
-// Are all commands valid?
-function areAllCommandsValid(input) {
-  const commands = input
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((cmd) => cmd.toLowerCase());
-
-  if (commands.length === 0) return false;
-
-  return commands.every((cmd) => commandExists(cmd));
-}
-
-// command exists
-function commandExists(command) {
-  return states.mantras.commands.hasOwnProperty(command);
 }
 
 /**
@@ -230,14 +225,4 @@ function htmlStringToFragmentFromTemplate(htmlString) {
   }
 
   return template.content.cloneNode(true);
-}
-
-function addDatasetToTopElement(fragment, value, key = "command") {
-  for (const node of fragment.childNodes) {
-    if (node.nodeType === 1) {
-      node.dataset[key] = value;
-      break;
-    }
-  }
-  return fragment;
 }
