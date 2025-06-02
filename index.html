@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Terminal</title>
+    <script type="module" crossorigin src="/assets/index-DBHj9e8V.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BcdTOLae.css">
+  </head>
+  <body class="bg-[#1e1e1e] text-white h-screen overflow-hidden">
+    <div class="terminal-container flex flex-col h-screen max-h-screen">
+      <div
+        class="top-bar bg-[#2d2d2d] p-[10px] flex items-center justify-between border-b border-[#3d3d3d] shrink-0"
+      >
+        <div class="window-controls flex gap-2">
+          <div
+            class="control-btn close w-[12px] h-[12px] rounded-full cursor-pointer bg-[#ff5f56]"
+          ></div>
+          <div
+            class="control-btn minimize w-[12px] h-[12px] rounded-full cursor-pointer bg-[#ffbd2e]"
+          ></div>
+          <div
+            class="control-btn maximize w-[12px] h-[12px] rounded-full cursor-pointer bg-[#27c93f]"
+          ></div>
+        </div>
+        <div
+          class="terminal-title text-[#ddd] text-[14px] text-center flex-grow"
+        >
+          Terminal
+        </div>
+      </div>
+      <div class="termain-wrapper flex flex-1 min-h-0">
+        <div
+          id="terminal-content"
+          class="terminal-content flex-grow flex flex-col bg-[#1e1e1e] relative min-h-0 p-0"
+        >
+          <div
+            class="flex-1 overflow-y-auto p-5 flex flex-col relative"
+            id="terminal-output-wrapper"
+            style="scroll-padding-top: 56px"
+          >
+            <div id="terminal-output" class="relative"></div>
+            <div
+              id="intro"
+              class="flex flex-col items-center justify-center min-h-[120px] absolute inset-0 pointer-events-none transition-opacity duration-300"
+            >
+              <h1 class="text-3xl font-bold mb-2">Welcome</h1>
+              <small class="text-gray-400"
+                >use
+                <span class="bg-[#2d2d2d] px-1 rounded">/commands/</span> to
+                navigate</small
+              >
+            </div>
+          </div>
+          <!-- Terminal User Input -->
+          <div
+            class="command-line flex items-center w-full bg-[#18181b] p-3 border-t border-[#23232a] sticky bottom-0 left-0 z-10"
+          >
+            <span class="prompt text-[#b3b3b3] font-mono mr-3 text-xs"
+              >&gt;</span
+            >
+            <span class="h-6 w-px bg-[#23232a] mr-3"></span>
+            <input
+              id="userInput"
+              type="text"
+              placeholder="Type a command..."
+              class="user-input bg-[#23232a] border-none text-white text-xs outline-none flex-grow px-3 py-1 rounded transition-colors duration-150 focus:bg-[#23232a]/90"
+              autofocus
+            />
+          </div>
+        </div>
+        <div
+          class="help-section min-w-[220px] max-w-xs bg-[#18181b] text-[#b3b3b3] p-5 h-full shrink-0 flex flex-col rounded-br-lg border-l border-[#23232a] shadow-inner font-mono"
+        >
+          <div class="mb-4">
+            <span
+              class="block text-xs tracking-widest text-[#888] mb-1 select-none"
+              >[ HELP ]</span
+            >
+            <div class="w-full h-px bg-[#23232a] mb-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
