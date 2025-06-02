@@ -57,3 +57,7 @@ export function areAllCommandsValid(commands, input) {
 export function commandExists(commands, command) {
   return commands.hasOwnProperty(command);
 }
+
+export function withBase(path) {
+  return `${import.meta.env.BASE_URL}${path}`;
+}

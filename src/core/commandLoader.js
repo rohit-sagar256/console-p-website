@@ -1,7 +1,10 @@
 // Load Commands
 import { states } from "./state";
+import { withBase } from "../utils/helpers";
 
-export async function loadMantras(mantrasPath = "./../../mantra/mantras.json") {
+export async function loadMantras(
+  mantrasPath = withBase("/mantra/mantras.json")
+) {
   try {
     const response = await fetch(mantrasPath);
     if (!response.ok) {
